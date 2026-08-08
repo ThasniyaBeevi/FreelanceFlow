@@ -17,13 +17,13 @@ namespace FreelanceFlow.Controllers
             _dbContext = dbContext;
         }
         [HttpGet]
-        public async Task<ActionResult<List<Client>>> Clients()
+        public async Task<ActionResult<List<Client>>> GetClients()
         {
             var clients = await _dbContext.Clients.ToListAsync();
             return Ok(clients);
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<Client>> Clients(long id)
+        public async Task<ActionResult<Client>> GetClient(long id)
         {
             if (id <= 0)
             {
@@ -37,27 +37,19 @@ namespace FreelanceFlow.Controllers
             return Ok(client);
         }
         [HttpPost]
-        public async Task<ActionResult<Client>> Clients(Client client)
+        public async Task<ActionResult<Client>> CreateClient(Client client)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             client.CreatedAt = DateTime.UtcNow;
             await _dbContext.Clients.AddAsync(client);
             await _dbContext.SaveChangesAsync();
-            return Ok(client);
+            return CreatedAtAction(nameof(GetClient), new { id = client.Id }, client);
         }
         [HttpPut("{id}")]
-        public async Task<ActionResult<Client>> Clients(long id , Client client)
+        public async Task<ActionResult<Client>> UpdateClient(long id , Client client)
         {
             if (id <= 0)
             {
                 return BadRequest("Id required, Invalid Params");
-            }
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
             }
             var data = await _dbContext.Clients.FindAsync(id);
             if (data == null)
@@ -69,7 +61,7 @@ namespace FreelanceFlow.Controllers
             data.PhoneNumber = client.PhoneNumber;
             data.CompanyName = client.CompanyName;
             await _dbContext.SaveChangesAsync();
-            return Ok(client);
+            return Ok(data);
         }
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteClient(long id)
