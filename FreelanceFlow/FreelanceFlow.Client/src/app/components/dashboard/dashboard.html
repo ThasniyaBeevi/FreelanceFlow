@@ -1,18 +1,42 @@
-<section class="page">
-  <div class="hero"><div><span class="eyebrow">FREELANCE OPERATIONS</span><h1>Good afternoon, Thasniya 👋</h1><p>Everything you need to manage clients, projects and cash flow.</p></div><a routerLink="/projects/new" class="primary">+ New project</a></div>
-  @if (loading) { <div class="loading">Loading your workspace…</div> }
+<section class="dashboard-page">
+  <div class="dashboard-hero">
+    <div><span class="eyebrow">FREELANCE OPERATIONS</span><h1>Good afternoon, Thasniya.</h1><p>Run your client work, delivery pipeline and cash flow from one place.</p></div>
+    <a routerLink="/projects/new" class="primary-action">+ New project</a>
+  </div>
+
+  @if (loading) { <div class="loading-state">Loading workspace data…</div> }
   @if (stats; as s) {
-    <div class="cards">
-      <article><span>Clients</span><strong>{{ s.clients }}</strong><small>People you work with</small></article>
-      <article><span>Active projects</span><strong>{{ s.activeProjects }}</strong><small>Currently in progress</small></article>
-      <article><span>Pipeline</span><strong>{{ s.pipelineValue | currency:'INR':'symbol':'1.0-0' }}</strong><small>Potential project value</small></article>
-      <article><span>Paid</span><strong>{{ s.paid | currency:'INR':'symbol':'1.0-0' }}</strong><small>Collected invoices</small></article>
+    <div class="metric-grid">
+      <article class="metric-card"><div class="metric-icon violet">◎</div><div><span>Clients</span><strong>{{ s.clients }}</strong><small>Active relationships</small></div></article>
+      <article class="metric-card"><div class="metric-icon blue">▦</div><div><span>Active projects</span><strong>{{ s.activeProjects }}</strong><small>Currently delivering</small></div></article>
+      <article class="metric-card"><div class="metric-icon amber">₹</div><div><span>Pipeline</span><strong>{{ s.pipelineValue | currency:'INR':'symbol':'1.0-0' }}</strong><small>Potential value</small></div></article>
+      <article class="metric-card"><div class="metric-icon green">✓</div><div><span>Collected</span><strong>{{ s.paid | currency:'INR':'symbol':'1.0-0' }}</strong><small>{{ s.invoiced | currency:'INR':'symbol':'1.0-0' }} invoiced</small></div></article>
     </div>
-    <div class="grid">
-      <article class="panel"><div class="panel-head"><div><h2>Upcoming deadlines</h2><p>Stay ahead of delivery dates.</p></div><a routerLink="/projects">View all</a></div>
-        @for (item of s.upcomingDeadlines; track item.id) { <div class="deadline"><div><b>{{ item.title }}</b><span>{{ item.status }}</span></div><time>{{ item.deadline | date:'MMM d, y' }}</time></div> } @empty { <div class="empty">No upcoming deadlines.</div> }
+
+    <div class="dashboard-grid">
+      <article class="surface-card deadlines-card">
+        <div class="card-heading"><div><h2>Upcoming deadlines</h2><p>Keep delivery work visible.</p></div><a routerLink="/projects">View projects</a></div>
+        <div class="deadline-list">
+          @for (item of s.upcomingDeadlines; track item.id) {
+            <div class="deadline-row"><div class="deadline-title"><span class="timeline-dot"></span><div><b>{{ item.title }}</b><span>{{ item.status }}</span></div></div><time>{{ item.deadline | date:'MMM d' }}</time></div>
+          } @empty { <div class="empty-state">No upcoming deadlines.</div> }
+        </div>
       </article>
-      <article class="panel insight"><span class="eyebrow">WORK SNAPSHOT</span><h2>{{ s.trackedHours | number:'1.0-1' }} hours tracked</h2><p>Keep your time entries updated so project profitability stays visible.</p><a routerLink="/clients">Manage clients →</a></article>
+      <article class="surface-card snapshot-card">
+        <span class="eyebrow">WORK SNAPSHOT</span>
+        <div class="snapshot-value">{{ s.trackedHours | number:'1.0-1' }}<span>hrs</span></div>
+        <h2>Time tracked this cycle</h2>
+        <div class="progress-track"><span [style.width.%]="s.utilization"></span></div>
+        <p>{{ s.utilization | number:'1.0-0' }}% of your target capacity logged. Update time entries as you work.</p>
+        <a routerLink="/time" class="secondary-link">Open time tracker →</a>
+      </article>
     </div>
+
+    <article class="surface-card activity-card">
+      <div class="card-heading"><div><h2>Recent activity</h2><p>A quick pulse of your workspace.</p></div><a routerLink="/clients">Manage workspace</a></div>
+      @for (activity of s.recentActivity; track activity.title + activity.date) {
+        <div class="activity-row"><div class="activity-badge">{{ activity.type.substring(0,1) }}</div><div class="activity-copy"><b>{{ activity.title }}</b><span>{{ activity.detail }}</span></div><time>{{ activity.date | date:'MMM d, h:mm a' }}</time></div>
+      } @empty { <div class="empty-state">Activity will appear here as you work.</div> }
+    </article>
   }
 </section>

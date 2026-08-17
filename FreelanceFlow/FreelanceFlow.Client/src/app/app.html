@@ -1,4 +1,26 @@
-<style>
-*{box-sizing:border-box}body{margin:0;background:#f8f8fb}.page{max-width:1180px;margin:auto;padding:36px}.hero{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:30px}.eyebrow{font-size:11px;letter-spacing:.14em;font-weight:800;color:#7c6ff0}.hero h1{font-size:32px;letter-spacing:-.04em;margin:8px 0}.hero p{color:#74758a;margin:0}.primary{background:#6557e8;color:#fff;padding:12px 18px;border-radius:12px;text-decoration:none;font-weight:700}.loading,.empty{text-align:center;padding:50px;color:#888}.table-wrap{background:#fff;border:1px solid #ececf3;border-radius:18px;overflow:auto;box-shadow:0 8px 30px rgba(34,32,58,.05)}table{width:100%;border-collapse:collapse;min-width:800px}th,td{text-align:left;padding:16px 20px;border-bottom:1px solid #f0f0f5;font-size:13px}th{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#88899a}td small{display:block;color:#888;margin-top:4px}.badge{padding:6px 9px;border-radius:20px;background:#efefff;color:#5b50c4;font-size:11px;font-weight:700}td button{border:0;background:transparent;color:#d15b65;cursor:pointer}.form-page .back{color:#6d6e80;text-decoration:none}.form-card{max-width:720px;background:#fff;border:1px solid #ececf3;border-radius:20px;padding:32px;margin:20px auto;box-shadow:0 10px 35px rgba(34,32,58,.06)}.form-card h1{margin:8px 0}.form-card>p{color:#77788b;margin-bottom:28px}.form-card form{display:grid;gap:18px}label{display:grid;gap:7px;font-size:13px;font-weight:700;color:#3f4051}input,select,textarea{font:inherit;border:1px solid #dddde7;border-radius:10px;padding:11px 12px;outline:none;background:#fff}input:focus,select:focus,textarea:focus{border-color:#7467eb}.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}.actions{display:flex;justify-content:flex-end;gap:12px;align-items:center;margin-top:10px}.actions a{color:#777;text-decoration:none}.actions button{border:0;background:#6557e8;color:#fff;padding:12px 18px;border-radius:10px;font-weight:700}.client-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.client-card{background:#fff;border:1px solid #ececf3;border-radius:18px;padding:22px;min-height:150px;box-shadow:0 8px 30px rgba(34,32,58,.05)}.client-avatar{width:44px;height:44px;border-radius:13px;background:#ece9ff;color:#5b50c4;display:grid;place-items:center;font-weight:800}.client-card h3{margin:12px 0 3px}.client-card>div span{color:#77788b;font-size:13px}.contact{margin-top:18px;color:#6f7080;font-size:12px;line-height:1.7}@media(max-width:800px){.page{padding:20px}.client-grid{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}}@media(max-width:560px){.client-grid{grid-template-columns:1fr}.hero{align-items:start;flex-direction:column}}
-</style>
-<div class="shell"><aside class="sidebar"><a routerLink="/" class="brand"><span class="logo">F</span><span>Freelance<span>Flow</span></span></a><div class="nav-label">WORKSPACE</div><nav><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">⌂ <span>Dashboard</span></a><a routerLink="/clients" routerLinkActive="active">♙ <span>Clients</span></a><a routerLink="/projects" routerLinkActive="active">▣ <span>Projects</span></a></nav><div class="sidebar-bottom"><div class="avatar">TB</div><div><b>Thasniya Beevi</b><small>Freelance developer</small></div></div></aside><main class="main"><header><div class="mobile-brand">FreelanceFlow</div><div class="header-actions"><span class="status-dot"></span> Workspace healthy <button aria-label="Notifications">♡</button></div></header><router-outlet /></main></div>
+<aside class="sidebar">
+  <a class="brand" routerLink="/">
+    <span class="brand-mark">F</span>
+    <span>Freelance<span class="brand-accent">Flow</span></span>
+  </a>
+  <div class="workspace-label">WORKSPACE</div>
+  <nav>
+    @for (item of nav; track item.route) {
+      <a [routerLink]="item.route" routerLinkActive="active" [routerLinkActiveOptions]="{exact: item.route === '/'}">
+        <span class="nav-icon">{{ item.icon }}</span><span>{{ item.label }}</span>
+      </a>
+    }
+  </nav>
+  <div class="sidebar-footer">
+    <div class="profile-avatar">TB</div>
+    <div class="profile-copy"><strong>Thasniya Beevi</strong><span>Independent developer</span></div>
+  </div>
+</aside>
+
+<main class="main-shell">
+  <header class="topbar">
+    <div class="topbar-title"><span class="online-dot"></span><span>Workspace</span></div>
+    <div class="topbar-actions"><button class="icon-button" aria-label="Notifications">◔</button><div class="top-avatar">TB</div></div>
+  </header>
+  <div class="content"><router-outlet /></div>
+</main>

@@ -1,44 +1,51 @@
 # FreelanceFlow
 
-A portfolio-grade freelance business management platform built to demonstrate modern full-stack development with **ASP.NET Core 8 Web API + Angular 20 + PostgreSQL + Entity Framework Core**.
+FreelanceFlow is a portfolio-grade freelance business management application built with **ASP.NET Core 8 Web API, Angular 20, Entity Framework Core and PostgreSQL**.
 
-## What it demonstrates
+## Product goal
 
-- Angular standalone components, routing, reactive forms and RxJS/HttpClient
-- ASP.NET Core REST APIs with dependency injection and async EF Core data access
-- PostgreSQL persistence with indexes, relationships and decimal precision
-- Client and project CRUD workflows
-- Dashboard analytics for pipeline, revenue and tracked hours
-- Clean separation between models, API controllers, data access and Angular services
-- Responsive application shell and professional SaaS-style UI
-- Swagger/OpenAPI for API exploration
+Treat freelance work like a real business: keep client relationships organized, manage delivery work, track time, invoice accurately and get a fast view of cash flow.
 
-## Modules
+## Showcase modules
 
-**Dashboard** — client count, active/completed projects, pipeline value, paid revenue and upcoming deadlines.
+- **Dashboard** — pipeline value, collected revenue, active projects, deadlines and recent activity.
+- **Clients** — client/company profiles with contact information and lifecycle status.
+- **Projects** — delivery pipeline with budgets, deadlines, status and progress.
+- **Tasks** — project-level work breakdown with priorities and due dates.
+- **Invoices** — invoice lifecycle, amounts, due dates and payment state.
+- **Time tracking** — billable/non-billable hours linked to projects.
 
-**Clients** — create and browse freelance clients.
+## Technical highlights
 
-**Projects** — create, browse and delete projects, with client, budget, status and deadline tracking.
+- Angular standalone components and lazy-friendly route structure.
+- Reactive forms and validation for business workflows.
+- Centralized Angular API service with typed HTTP contracts.
+- ASP.NET Core REST endpoints with dependency injection and async EF Core access.
+- PostgreSQL relational model with explicit relationships and money/time fields.
+- Swagger/OpenAPI for API exploration.
+- CORS configuration for local Angular development.
+- Responsive SaaS-style shell with reusable cards, tables, badges and forms.
+- Clear domain models so the project is easy to extend with authentication, role-based access, reporting and notifications.
 
-**Backend foundation** — proposals, invoices and time entries are modeled for the next workflow expansion.
-
-## Run locally
+## Local setup
 
 ### Backend
-1. Create a PostgreSQL database and update `FreelanceFlow/FreelanceFlow/appsettings.json`.
-2. Open `FreelanceFlow/FreelanceFlow.sln` in Visual Studio.
-3. Run the ASP.NET Core API. Swagger is available in Development.
+
+1. Create a PostgreSQL database.
+2. Update the connection string in `FreelanceFlow/FreelanceFlow/appsettings.json`.
+3. Open `FreelanceFlow/FreelanceFlow.sln` in Visual Studio and run the API.
+4. Use the Swagger UI shown in Development to inspect the endpoints.
 
 ### Frontend
+
 ```bash
 cd FreelanceFlow/FreelanceFlow.Client
 npm install
 npm start
 ```
 
-Open `http://localhost:4200`.
+Then open `http://localhost:4200`.
 
-## Portfolio talking points
+## Portfolio / interview talking points
 
-This project is intentionally designed as an interview-ready showcase: RESTful APIs, EF Core relationships, PostgreSQL, CORS, dependency injection, async programming, Angular routing, reactive forms, reusable services, RxJS subscriptions and responsive UI are all visible in one realistic product.
+This project is intentionally designed to demonstrate a complete full-stack workflow rather than a collection of isolated CRUD screens. It gives you concrete examples to discuss around REST design, EF Core relationships, PostgreSQL, dependency injection, async programming, Angular routing, typed services, reactive forms, validation, RxJS/HttpClient and responsive UI engineering.
