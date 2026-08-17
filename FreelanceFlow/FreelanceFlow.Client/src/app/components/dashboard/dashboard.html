@@ -1,0 +1,18 @@
+<section class="page">
+  <div class="hero"><div><span class="eyebrow">FREELANCE OPERATIONS</span><h1>Good afternoon, Thasniya 👋</h1><p>Everything you need to manage clients, projects and cash flow.</p></div><a routerLink="/projects/new" class="primary">+ New project</a></div>
+  @if (loading) { <div class="loading">Loading your workspace…</div> }
+  @if (stats; as s) {
+    <div class="cards">
+      <article><span>Clients</span><strong>{{ s.clients }}</strong><small>People you work with</small></article>
+      <article><span>Active projects</span><strong>{{ s.activeProjects }}</strong><small>Currently in progress</small></article>
+      <article><span>Pipeline</span><strong>{{ s.pipelineValue | currency:'INR':'symbol':'1.0-0' }}</strong><small>Potential project value</small></article>
+      <article><span>Paid</span><strong>{{ s.paid | currency:'INR':'symbol':'1.0-0' }}</strong><small>Collected invoices</small></article>
+    </div>
+    <div class="grid">
+      <article class="panel"><div class="panel-head"><div><h2>Upcoming deadlines</h2><p>Stay ahead of delivery dates.</p></div><a routerLink="/projects">View all</a></div>
+        @for (item of s.upcomingDeadlines; track item.id) { <div class="deadline"><div><b>{{ item.title }}</b><span>{{ item.status }}</span></div><time>{{ item.deadline | date:'MMM d, y' }}</time></div> } @empty { <div class="empty">No upcoming deadlines.</div> }
+      </article>
+      <article class="panel insight"><span class="eyebrow">WORK SNAPSHOT</span><h2>{{ s.trackedHours | number:'1.0-1' }} hours tracked</h2><p>Keep your time entries updated so project profitability stays visible.</p><a routerLink="/clients">Manage clients →</a></article>
+    </div>
+  }
+</section>
